@@ -1,0 +1,267 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "urn:dev:wot:com:example:servient:bloodPressureMonitor",
+  "@type": "tm:ThingModel",
+  "name": "bloodPressureMonitor",
+  "title": "bloodPressureMonitor",
+  "description": "",
+  "base": "https://servient.example.com/",
+  "properties": {
+    "on": {
+      "writable": true,
+      "schema": {
+        "type": "boolean"
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/properties/on"
+        }
+      ]
+    },
+    "systolicPressure": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 300,
+        "unit": "mmHg"
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/properties/systolicPressure"
+        }
+      ]
+    },
+    "diastolicPressure": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 200,
+        "unit": "mmHg"
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/properties/diastolicPressure"
+        }
+      ]
+    },
+    "heartRate": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 30,
+        "maximum": 220,
+        "unit": "bpm"
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/properties/heartRate"
+        }
+      ]
+    },
+    "batteryLevel": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "unit": "percent"
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/properties/batteryLevel"
+        }
+      ]
+    },
+    "userProfile": {
+      "writable": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "userID": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "other"
+            ]
+          }
+        }
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/properties/userProfile"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "startMeasurement": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/actions/startMeasurement"
+        }
+      ]
+    },
+    "cancelMeasurement": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/actions/cancelMeasurement"
+        }
+      ]
+    },
+    "setAlarmThresholds": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "maxSystolic",
+            "schema": {
+              "type": "number",
+              "minimum": 120,
+              "maximum": 200
+            }
+          },
+          {
+            "name": "maxDiastolic",
+            "schema": {
+              "type": "number",
+              "minimum": 80,
+              "maximum": 120
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/actions/setAlarmThresholds"
+        }
+      ]
+    },
+    "clearHistory": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/actions/clearHistory"
+        }
+      ]
+    }
+  },
+  "events": {
+    "measurementComplete": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "systolicPressure",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "diastolicPressure",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "heartRate",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "userID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/events/measurementComplete"
+        }
+      ]
+    },
+    "highBloodPressureAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "systolicPressure",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "diastolicPressure",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/events/highBloodPressureAlert"
+        }
+      ]
+    },
+    "lowBatteryAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "batteryLevel",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/bloodPressureMonitor/events/lowBatteryAlert"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "href": "https://servient.example.com/things/healthApp",
+      "rel": "controlledBy",
+      "mediaType": "application/td"
+    },
+    {
+      "href": "https://servient.example.com/things/patientRecord",
+      "rel": "writesTo",
+      "mediaType": "application/td"
+    }
+  ]
+}
