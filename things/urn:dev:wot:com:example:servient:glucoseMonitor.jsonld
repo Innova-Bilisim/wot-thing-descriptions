@@ -1,0 +1,283 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "urn:dev:wot:com:example:servient:glucoseMonitor",
+  "@type": "tm:ThingModel",
+  "name": "glucoseMonitor",
+  "title": "glucoseMonitor",
+  "description": "",
+  "base": "https://servient.example.com/",
+  "properties": {
+    "on": {
+      "writable": true,
+      "schema": {
+        "type": "boolean"
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/properties/on"
+        }
+      ]
+    },
+    "currentGlucoseLevel": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 600,
+        "unit": "mg/dL"
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/properties/currentGlucoseLevel"
+        }
+      ]
+    },
+    "lastMeasurementTime": {
+      "writable": false,
+      "schema": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/properties/lastMeasurementTime"
+        }
+      ]
+    },
+    "batteryLevel": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "unit": "percent"
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/properties/batteryLevel"
+        }
+      ]
+    },
+    "testStripsRemaining": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/properties/testStripsRemaining"
+        }
+      ]
+    },
+    "measurementUnit": {
+      "writable": true,
+      "schema": {
+        "type": "string",
+        "enum": [
+          "mg/dL",
+          "mmol/L"
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/properties/measurementUnit"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "takeMeasurement": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/actions/takeMeasurement"
+        }
+      ]
+    },
+    "calibrate": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "referenceValue",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 600
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/actions/calibrate"
+        }
+      ]
+    },
+    "setAlarmThresholds": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "highGlucose",
+            "schema": {
+              "type": "number",
+              "minimum": 120,
+              "maximum": 400
+            }
+          },
+          {
+            "name": "lowGlucose",
+            "schema": {
+              "type": "number",
+              "minimum": 50,
+              "maximum": 100
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/actions/setAlarmThresholds"
+        }
+      ]
+    },
+    "resetDevice": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/actions/resetDevice"
+        }
+      ]
+    }
+  },
+  "events": {
+    "measurementComplete": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "glucoseLevel",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "unit",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "mealContext",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "fasting",
+                "beforeMeal",
+                "afterMeal",
+                "bedtime",
+                "other"
+              ]
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/events/measurementComplete"
+        }
+      ]
+    },
+    "highGlucoseAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "glucoseLevel",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/events/highGlucoseAlert"
+        }
+      ]
+    },
+    "lowGlucoseAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "glucoseLevel",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/events/lowGlucoseAlert"
+        }
+      ]
+    },
+    "lowStripsWarning": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "stripsRemaining",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/glucoseMonitor/events/lowStripsWarning"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "href": "https://servient.example.com/things/diabetesApp",
+      "rel": "controlledBy",
+      "mediaType": "application/td"
+    },
+    {
+      "href": "https://servient.example.com/things/insulinPump",
+      "rel": "communicatesWith",
+      "mediaType": "application/td"
+    }
+  ]
+}
