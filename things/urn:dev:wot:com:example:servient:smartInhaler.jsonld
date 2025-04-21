@@ -1,0 +1,382 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "urn:dev:wot:com:example:servient:smartInhaler",
+  "@type": "tm:ThingModel",
+  "name": "smartInhaler",
+  "title": "smartInhaler",
+  "description": "",
+  "base": "https://servient.example.com/",
+  "properties": {
+    "on": {
+      "writable": true,
+      "schema": {
+        "type": "boolean"
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/properties/on"
+        }
+      ]
+    },
+    "medicationLevel": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "unit": "percent"
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/properties/medicationLevel"
+        }
+      ]
+    },
+    "batteryLevel": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "unit": "percent"
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/properties/batteryLevel"
+        }
+      ]
+    },
+    "dosesRemaining": {
+      "writable": false,
+      "schema": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/properties/dosesRemaining"
+        }
+      ]
+    },
+    "lastUsedTimestamp": {
+      "writable": false,
+      "schema": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/properties/lastUsedTimestamp"
+        }
+      ]
+    },
+    "inhalationSchedule": {
+      "writable": true,
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "string",
+              "format": "time"
+            },
+            "dosage": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "daysOfWeek": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "mon",
+                  "tue",
+                  "wed",
+                  "thu",
+                  "fri",
+                  "sat",
+                  "sun"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/properties/inhalationSchedule"
+        }
+      ]
+    },
+    "medicationType": {
+      "writable": true,
+      "schema": {
+        "type": "string"
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/properties/medicationType"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "logInhalation": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "inhalationQuality",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "good",
+                "moderate",
+                "poor"
+              ]
+            }
+          },
+          {
+            "name": "duration",
+            "schema": {
+              "type": "number",
+              "unit": "seconds"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/actions/logInhalation"
+        }
+      ]
+    },
+    "setReminder": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "time",
+            "schema": {
+              "type": "string",
+              "format": "time"
+            }
+          },
+          {
+            "name": "message",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "repeat",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/actions/setReminder"
+        }
+      ]
+    },
+    "resetCounter": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "totalDoses",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/actions/resetCounter"
+        }
+      ]
+    },
+    "testDevice": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/smartInhaler/actions/testDevice"
+        }
+      ]
+    }
+  },
+  "events": {
+    "inhalationTaken": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "inhalationQuality",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "good",
+                "moderate",
+                "poor"
+              ]
+            }
+          },
+          {
+            "name": "dosesRemaining",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/events/inhalationTaken"
+        }
+      ]
+    },
+    "missedDose": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "scheduledTime",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "detectionTime",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/events/missedDose"
+        }
+      ]
+    },
+    "lowMedicationAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "dosesRemaining",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "estimatedDaysLeft",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/events/lowMedicationAlert"
+        }
+      ]
+    },
+    "lowBatteryAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "batteryLevel",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/events/lowBatteryAlert"
+        }
+      ]
+    },
+    "environmentalTriggerDetected": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "triggerType",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pollen",
+                "pollution",
+                "humidity",
+                "temperature",
+                "other"
+              ]
+            }
+          },
+          {
+            "name": "level",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high",
+                "severe"
+              ]
+            }
+          },
+          {
+            "name": "location",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/smartInhaler/events/environmentalTriggerDetected"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "href": "https://servient.example.com/things/asthmaManagementApp",
+      "rel": "controlledBy",
+      "mediaType": "application/td"
+    },
+    {
+      "href": "https://servient.example.com/things/environmentalSensor",
+      "rel": "communicatesWith",
+      "mediaType": "application/td"
+    },
+    {
+      "href": "https://servient.example.com/things/healthRecords",
+      "rel": "writesTo",
+      "mediaType": "application/td"
+    }
+  ]
+}
