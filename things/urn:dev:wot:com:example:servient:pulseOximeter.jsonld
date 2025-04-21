@@ -1,0 +1,268 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "urn:dev:wot:com:example:servient:pulseOximeter",
+  "@type": "tm:ThingModel",
+  "name": "pulseOximeter",
+  "title": "pulseOximeter",
+  "description": "",
+  "base": "https://servient.example.com/",
+  "properties": {
+    "on": {
+      "writable": true,
+      "schema": {
+        "type": "boolean"
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/properties/on"
+        }
+      ]
+    },
+    "oxygenSaturation": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "unit": "percent"
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/properties/oxygenSaturation"
+        }
+      ]
+    },
+    "pulseRate": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 300,
+        "unit": "bpm"
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/properties/pulseRate"
+        }
+      ]
+    },
+    "batteryLevel": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "unit": "percent"
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/properties/batteryLevel"
+        }
+      ]
+    },
+    "measurementInterval": {
+      "writable": true,
+      "schema": {
+        "type": "number",
+        "minimum": 1,
+        "maximum": 60,
+        "unit": "seconds"
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/properties/measurementInterval"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "startMeasurement": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/actions/startMeasurement"
+        }
+      ]
+    },
+    "stopMeasurement": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/actions/stopMeasurement"
+        }
+      ]
+    },
+    "calibrate": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/actions/calibrate"
+        }
+      ]
+    },
+    "setAlarmThresholds": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "minOxygenSaturation",
+            "schema": {
+              "type": "number",
+              "minimum": 80,
+              "maximum": 95
+            }
+          },
+          {
+            "name": "maxPulseRate",
+            "schema": {
+              "type": "number",
+              "minimum": 100,
+              "maximum": 200
+            }
+          },
+          {
+            "name": "minPulseRate",
+            "schema": {
+              "type": "number",
+              "minimum": 40,
+              "maximum": 60
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/actions/setAlarmThresholds"
+        }
+      ]
+    }
+  },
+  "events": {
+    "lowOxygenAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "oxygenSaturation",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/events/lowOxygenAlert"
+        }
+      ]
+    },
+    "abnormalPulseAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "pulseRate",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/events/abnormalPulseAlert"
+        }
+      ]
+    },
+    "lowBatteryAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "batteryLevel",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/events/lowBatteryAlert"
+        }
+      ]
+    },
+    "readingComplete": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "oxygenSaturation",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pulseRate",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "perfusionIndex",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/pulseOximeter/events/readingComplete"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "href": "https://servient.example.com/things/patientMonitor",
+      "rel": "controlledBy",
+      "mediaType": "application/td"
+    },
+    {
+      "href": "https://servient.example.com/things/healthDataStorage",
+      "rel": "writesTo",
+      "mediaType": "application/td"
+    }
+  ]
+}
