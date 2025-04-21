@@ -1,0 +1,359 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "urn:dev:wot:com:example:servient:ecgMonitor",
+  "@type": "tm:ThingModel",
+  "name": "ecgMonitor",
+  "title": "ecgMonitor",
+  "description": "",
+  "base": "https://servient.example.com/",
+  "properties": {
+    "on": {
+      "writable": true,
+      "schema": {
+        "type": "boolean"
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/properties/on"
+        }
+      ]
+    },
+    "heartRate": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 300,
+        "unit": "bpm"
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/properties/heartRate"
+        }
+      ]
+    },
+    "recordingStatus": {
+      "writable": false,
+      "schema": {
+        "type": "string",
+        "enum": [
+          "idle",
+          "recording",
+          "analyzing",
+          "error"
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/properties/recordingStatus"
+        }
+      ]
+    },
+    "batteryLevel": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "unit": "percent"
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/properties/batteryLevel"
+        }
+      ]
+    },
+    "storageRemaining": {
+      "writable": false,
+      "schema": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "unit": "percent"
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/properties/storageRemaining"
+        }
+      ]
+    },
+    "leadConfiguration": {
+      "writable": true,
+      "schema": {
+        "type": "string",
+        "enum": [
+          "single-lead",
+          "three-lead",
+          "six-lead",
+          "twelve-lead"
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/properties/leadConfiguration"
+        }
+      ]
+    },
+    "filterSettings": {
+      "writable": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "lowPass": {
+            "type": "boolean"
+          },
+          "highPass": {
+            "type": "boolean"
+          },
+          "notchFilter": {
+            "type": "boolean"
+          }
+        }
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/properties/filterSettings"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "startRecording": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "duration",
+            "schema": {
+              "type": "number",
+              "minimum": 10,
+              "maximum": 3600,
+              "unit": "seconds"
+            }
+          },
+          {
+            "name": "patientID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/actions/startRecording"
+        }
+      ]
+    },
+    "stopRecording": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/actions/stopRecording"
+        }
+      ]
+    },
+    "analyze": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "recordingID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/actions/analyze"
+        }
+      ]
+    },
+    "transferData": {
+      "inputSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "destination",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          {
+            "name": "recordingIDs",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/actions/transferData"
+        }
+      ]
+    },
+    "calibrate": {
+      "inputSchema": {},
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/actions/calibrate"
+        }
+      ]
+    }
+  },
+  "events": {
+    "recordingComplete": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "recordingID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "duration",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "patientID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/events/recordingComplete"
+        }
+      ]
+    },
+    "arrhythmiaDetected": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "atrial_fibrillation",
+                "bradycardia",
+                "tachycardia",
+                "pvc",
+                "other"
+              ]
+            }
+          },
+          {
+            "name": "confidence",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "unit": "percent"
+            }
+          },
+          {
+            "name": "timestamp",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/events/arrhythmiaDetected"
+        }
+      ]
+    },
+    "lowBatteryAlert": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "batteryLevel",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "estimatedTimeRemaining",
+            "schema": {
+              "type": "number",
+              "unit": "minutes"
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/events/lowBatteryAlert"
+        }
+      ]
+    },
+    "poorSignalQuality": {
+      "schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "leadNumber",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "signalQuality",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "poor",
+                "noisy",
+                "disconnected"
+              ]
+            }
+          }
+        ]
+      },
+      "forms": [
+        {
+          "href": "/things/ecgMonitor/events/poorSignalQuality"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "href": "https://servient.example.com/things/cardiacMonitoringSystem",
+      "rel": "controlledBy",
+      "mediaType": "application/td"
+    },
+    {
+      "href": "https://servient.example.com/things/patientEHR",
+      "rel": "writesTo",
+      "mediaType": "application/td"
+    }
+  ]
+}
