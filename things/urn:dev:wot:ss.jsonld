@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "urn:dev:wot:ss",
+  "@type": "tm:ThingModel",
+  "name": "ss",
+  "title": "ss",
+  "description": "",
+  "base": "",
+  "properties": {
+    "status": {
+      "writable": true,
+      "schema": {
+        "type": "string"
+      },
+      "forms": []
+    }
+  },
+  "actions": {},
+  "events": {},
+  "links": []
+}
