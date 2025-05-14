@@ -1,0 +1,36 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "sensor/1",
+  "@type": "wd:Sensor",
+  "name": "sensor1",
+  "title": "sensor1",
+  "description": "A sensor",
+  "base": "",
+  "properties": {
+    "sicaklik": {
+      "writable": true,
+      "forms": []
+    }
+  },
+  "actions": {},
+  "events": {
+    "hareketvarmi": {
+      "schema": {
+        "@id": "sensor/1/hareketvarmi",
+        "title": "hareketvarmi",
+        "@type": "hareketvarmi",
+        "type": "boolean",
+        "description": "Hareket var",
+        "links": [
+          {
+            "href": "/events/hareketvarmi"
+          }
+        ]
+      },
+      "forms": []
+    }
+  },
+  "links": []
+}
