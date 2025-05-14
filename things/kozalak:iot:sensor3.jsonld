@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "kozalak:iot:sensor3",
+  "@type": "wd:Sensor",
+  "name": "Sensor3",
+  "title": "Sensor3",
+  "description": "A sensor",
+  "base": "",
+  "properties": {
+    "co2": {
+      "writable": true,
+      "forms": []
+    }
+  },
+  "actions": {},
+  "events": {},
+  "links": []
+}
