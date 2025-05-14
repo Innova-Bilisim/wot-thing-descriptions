@@ -4,8 +4,8 @@
   },
   "@id": "kozalak:iot:sensor1",
   "@type": "wd:Sensor",
-  "name": "Sensor",
-  "title": "Sensor",
+  "name": "Sensor1",
+  "title": "Sensor1",
   "description": "",
   "base": "https://arge.innova.com.tr/",
   "properties": {
