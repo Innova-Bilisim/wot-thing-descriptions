@@ -1,0 +1,88 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "kozalak:iot:platform1",
+  "@type": "sosa:Platform",
+  "name": "Platform1",
+  "title": "Platform1",
+  "description": "Platform",
+  "base": "https://arge.innova.com.tr/platform/",
+  "properties": {
+    "status": {
+      "writable": true,
+      "schema": {
+        "type": "boolean"
+      },
+      "forms": [
+        {
+          "href": "/properties/status"
+        }
+      ]
+    }
+  },
+  "actions": {},
+  "events": {
+    "highAirPollution": {
+      "schema": {
+        "type": "object"
+      },
+      "forms": [
+        {
+          "href": "/events/highpollution"
+        }
+      ]
+    },
+    "lowAirPollution": {
+      "schema": {
+        "type": "object"
+      },
+      "forms": [
+        {
+          "href": "/events/lowpollution"
+        }
+      ]
+    },
+    "highTemperature": {
+      "schema": {
+        "type": "object"
+      },
+      "forms": [
+        {
+          "href": "/events/hightemperature"
+        }
+      ]
+    },
+    "lowTemperature": {
+      "schema": {
+        "type": "object"
+      },
+      "forms": [
+        {
+          "href": "/events/lowtemperature"
+        }
+      ]
+    },
+    "highHumidity": {
+      "schema": {
+        "type": "object"
+      },
+      "forms": [
+        {
+          "href": "/events/highhumidity"
+        }
+      ]
+    },
+    "lowHumidity": {
+      "schema": {
+        "type": "object"
+      },
+      "forms": [
+        {
+          "href": "/events/lowhumidity"
+        }
+      ]
+    }
+  },
+  "links": []
+}
