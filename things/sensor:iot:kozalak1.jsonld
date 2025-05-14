@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "sensor:iot:kozalak1",
+  "@type": "wd:Sensor",
+  "name": "Sensor1",
+  "title": "Sensor1",
+  "description": "",
+  "base": "https://arge.innova.com.tr/",
+  "properties": {
+    "sicaklik": {
+      "writable": false,
+      "forms": [
+        {
+          "href": "/things/Sensor/properties/sicaklik"
+        }
+      ]
+    }
+  },
+  "actions": {},
+  "events": {
+    "hareketvarmi": {
+      "schema": {
+        "type": "boolean"
+      },
+      "forms": [
+        {
+          "href": "/things/Sensor/events/hareketvarmi"
+        }
+      ]
+    }
+  },
+  "links": []
+}
