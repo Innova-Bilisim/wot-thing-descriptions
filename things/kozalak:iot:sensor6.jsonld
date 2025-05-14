@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "kozalak:iot:sensor6",
+  "@type": "wd:Sensor",
+  "name": "Sensor6",
+  "title": "Sensor6",
+  "description": "",
+  "base": "https://arge.innova.com.tr/",
+  "properties": {
+    "kirlilik": {
+      "writable": false,
+      "forms": [
+        {
+          "href": "/things/Sensor/properties/kirlilik"
+        }
+      ]
+    }
+  },
+  "actions": {},
+  "events": {
+    "hareketvarmi": {
+      "schema": {
+        "type": "boolean"
+      },
+      "forms": [
+        {
+          "href": "/things/Sensor/events/hareketvarmi"
+        }
+      ]
+    }
+  },
+  "links": []
+}
