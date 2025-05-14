@@ -4,32 +4,31 @@
   },
   "@id": "sensor/1",
   "@type": "wd:Sensor",
-  "name": "sensor1",
-  "title": "sensor1",
-  "description": "A sensor",
-  "base": "",
+  "name": "Sensor1",
+  "title": "Sensor1",
+  "description": "",
+  "base": "https://arge.innova.com.tr/",
   "properties": {
     "sicaklik": {
-      "writable": true,
-      "forms": []
+      "writable": false,
+      "forms": [
+        {
+          "href": "/things/Sensor/properties/sicaklik"
+        }
+      ]
     }
   },
   "actions": {},
   "events": {
     "hareketvarmi": {
       "schema": {
-        "@id": "sensor/1/hareketvarmi",
-        "title": "hareketvarmi",
-        "@type": "hareketvarmi",
-        "type": "boolean",
-        "description": "Hareket var",
-        "links": [
-          {
-            "href": "/events/hareketvarmi"
-          }
-        ]
+        "type": "boolean"
       },
-      "forms": []
+      "forms": [
+        {
+          "href": "/events/hareketvarmi"
+        }
+      ]
     }
   },
   "links": []
