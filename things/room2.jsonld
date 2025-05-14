@@ -1,0 +1,24 @@
+{
+  "@context": {
+    "@context": "https://www.w3.org/2019/wot/td/v1"
+  },
+  "@id": "room2",
+  "@type": "wd:Space",
+  "name": "Room2",
+  "title": "Room2",
+  "description": "A space containing sensors",
+  "base": "https://arge.innova.com.tr/",
+  "properties": {
+    "location": {
+      "writable": false,
+      "forms": [
+        {
+          "href": "/things/Room/properties/location"
+        }
+      ]
+    }
+  },
+  "actions": {},
+  "events": {},
+  "links": []
+}
